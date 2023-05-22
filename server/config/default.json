@@ -1,0 +1,14 @@
+{
+    "host": "localhost",
+    "port": 8000,
+    "dbport": 5432,
+    "database": "fas",
+    "username": "postgres",
+    "password": "22102002",
+    "dialect": "postgres",
+    "authentication": 
+    {
+        "jwtSecret": "ilovemarie"
+    },
+    "units": "metric"
+}

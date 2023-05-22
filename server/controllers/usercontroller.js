@@ -1,0 +1,135 @@
+const bcrypt = require('bcrypt');
+const User = require('../models/user.js');
+const jwt = require('jsonwebtoken');
+const config = require('../config/default.json');
+
+module.exports = {
+    async updateUser(req, res) {
+        try {
+            const { email, username, password, apikey } = req.body;
+            const userId = req.user.id;
+
+            console.log(userId);
+
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).send({
+                    error: 'User not found'
+                });
+            }
+
+            if (email) {
+                if (email !== user.email) {
+                    const candidateEmail = await User.findOne({
+                        where: {
+                            email: email
+                        }
+                    });
+                    if (candidateEmail) {
+                        console.log("Email already in use");
+                        return res.status(400).send({
+                            error: `The email ${email} is already in use.`
+                        });
+                    } else {
+                    console.log("Updating email");
+                    user.email = email;
+                    }
+                }
+            }
+
+            if (username) {
+                if (username !== user.username) {
+                    const candidateUsername = await User.findOne({
+                        where: {
+                            username: username
+                        }
+                    });
+                    if (candidateUsername) {
+                        return res.status(400).send({
+                            error: `The username ${username} is already in use.`
+                        });
+                    } else {
+                    console.log("Updating username");
+                    user.username = username;
+                    }
+                }
+            }
+
+            if (password){
+                if (password.length > 6) {
+                    const hashPassword = await bcrypt.hash(password, 8);
+                    user.password = hashPassword;
+                } else {
+                    return res.status(400).send({
+                        error: 'Password must be at least 6 characters long'
+                    });
+                }
+            }
+            
+
+            if (apikey) {
+                user.apikey = apikey;
+            }
+
+            await user.save();
+
+            token = jwt.sign(
+                { id: user.id },
+                config.authentication.jwtSecret,
+                { expiresIn: '1d' }
+            );
+
+            res.send({
+                message: 'User updated successfully',
+                token: token
+                });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        }
+    },
+
+    async deleteUser(req, res) {
+        try {
+            const userId = req.user.id;
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).send({
+                    error: 'User not found'
+                });
+            }
+            await user.destroy();
+            res.send({
+                message: 'User deleted successfully'
+            });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        }
+    },
+
+    async getUser(req, res) {
+        try {
+            const userId = req.user.id;
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).send({
+                    error: 'User not found'
+                });
+            }
+
+            res.send({
+                user: user
+            });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        }
+    }
+}
