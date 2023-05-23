@@ -13,6 +13,7 @@ const {
   smoothWindDirection, 
   smoothWindSpeed
 } = require('./smooth.js');
+const { Op } = require('sequelize');
 
 async function fetchWeatherDataForCity(cityId) {
   try {
@@ -43,6 +44,9 @@ async function fetchWeatherDataForCity(cityId) {
         const previousWrites = await Api.findAll({
           where: {
             city: cityId,
+            date: {
+              [Op.gt]: datetime - 20 * 60 * 1000
+            }
           },
           order: [['date', 'DESC']],
           limit: 5
@@ -54,16 +58,18 @@ async function fetchWeatherDataForCity(cityId) {
         const smoothedMaxTemperature = smoothMaxTemperature(maxTemperature, previousWrites);
         const smoothedHumidity = smoothHumidity(humidity, previousWrites);
 
-        await ApiData.create({
-          city: cityId,
-          wind_speed: smoothedWindSpeed,
-          wind_deg: smoothedWindDirection,
-          temp_min: smoothedMinTemperature,
-          temp_max: smoothedMaxTemperature,
-          date: datetime,
-          humidity: smoothedHumidity,
-        });
-
+        if (previousWrites.length > 0) {
+          await ApiData.create({
+            city: cityId,
+            wind_speed: smoothedWindSpeed,
+            wind_deg: smoothedWindDirection,
+            temp_min: smoothedMinTemperature,
+            temp_max: smoothedMaxTemperature,
+            date: datetime,
+            humidity: smoothedHumidity,
+          });
+        }
+        
         await Api.create({
           city: cityId,
           wind_speed: windSpeed,
