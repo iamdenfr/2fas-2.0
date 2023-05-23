@@ -45,11 +45,11 @@ async function fetchWeatherDataForCity(cityId) {
           where: {
             city: cityId,
             date: {
-              [Op.gt]: datetime - 20 * 60 * 1000
+              [Op.gt]: datetime - 30 * 60 * 1000
             }
           },
           order: [['date', 'DESC']],
-          limit: 5
+          limit: 10
         });
 
         const smoothedWindSpeed = smoothWindSpeed(windSpeed, previousWrites);
