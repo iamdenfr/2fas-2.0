@@ -9,13 +9,6 @@ const userRoutes = require('./routes/useroutes.js');
 const weatherRoutes = require('./routes/weatherroutes.js');
 const ow_api = require('./utils/openweatherscheduler.js');
 
-const User = require('./models/user.js');
-const Company = require('./models/company.js');
-const Arduino = require('./models/arduino.js');
-const Sensor = require('./models/sensor.js');
-const City = require('./models/city.js');
-const Api = require('./models/ow_api.js');
-
 const sequelize = require('./sequelize');
 
 app.use(cors());
@@ -40,7 +33,7 @@ const start = async () => {
       console.log(`Server has been started on port ${port}...`); 
       setInterval( () => {
         ow_api.start()
-      }, 1000 * 60 * 5);
+      }, 1000 * 60 * 2);
     });
   } catch (e) {
     console.log('Server Error', e.message);
