@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const User = require('../models/user.js');
 const Api = require('../models/ow_api.js');
 const ApiData = require('../models/smoothdata.js');
-const { smoothHumidity, smoothMaxTemperature, smoothMinTemperature, smoothWindDirection, smoothWindSpeed } = require('./smooth');
+const { smoothHumidity, smoothMaxTemperature, smoothMinTemperature, smoothWindSpeed } = require('./smooth');
 const config = require('../config/default.json');
 const Sequelize = require('sequelize');
 
@@ -24,6 +24,9 @@ async function fetchWeatherDataForCity(cityId) {
   
         try {
           const response = await axios.get(url);
+          if (response.status !== 200) {
+            throw new Error(`Error fetching weather data for City ID ${cityId}: ${response.statusText}`)
+          } else {
           const weatherData = response.data;
   
           const windSpeed = weatherData.wind.speed;
@@ -41,7 +44,7 @@ async function fetchWeatherDataForCity(cityId) {
               }
             },
             order: [['date', 'DESC']],
-            limit: 10
+            limit: 5
           });
   
           const smoothedWindSpeed = smoothWindSpeed(windSpeed, previousWrites);
@@ -75,6 +78,7 @@ async function fetchWeatherDataForCity(cityId) {
           } else {
             console.log("No response from API");
           }
+        }
   
         } catch (error) {
           console.error(`Error fetching weather data for City ID ${cityId}:`, error);
