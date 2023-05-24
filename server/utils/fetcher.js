@@ -45,7 +45,6 @@ async function fetchWeatherDataForCity(cityId) {
           });
   
           const smoothedWindSpeed = smoothWindSpeed(windSpeed, previousWrites);
-          const smoothedWindDirection = smoothWindDirection(windDirection, previousWrites);
           const smoothedMinTemperature = smoothMinTemperature(minTemperature, previousWrites);
           const smoothedMaxTemperature = smoothMaxTemperature(maxTemperature, previousWrites);
           const smoothedHumidity = smoothHumidity(humidity, previousWrites);
@@ -54,7 +53,7 @@ async function fetchWeatherDataForCity(cityId) {
             await ApiData.create({
               city: cityId,
               wind_speed: smoothedWindSpeed,
-              wind_deg: smoothedWindDirection,
+              wind_deg: windDirection,
               temp_min: smoothedMinTemperature,
               temp_max: smoothedMaxTemperature,
               date: datetime,
