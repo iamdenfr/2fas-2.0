@@ -1,5 +1,8 @@
 const ApiData = require('../models/smoothdata.js');
 const User = require('../models/user.js');
+const Arduino = require('../models/arduino.js');
+const Sensor = require('../models/sensor.js');
+const Sequelize = require('sequelize');
 const { predictFireProbability } = require('../utils/predict.js');
 
 module.exports = {
@@ -46,6 +49,50 @@ module.exports = {
             console.log(err);
             res.status(500).send({
                 error: 'An error has occured trying to fetch the fire probability'
+            });
+        }
+    },
+
+    async getSensorData(req, res) {
+        try {
+            const user = await User.findByPk(req.user.id);
+            const arduinos = await Arduino.findAll({
+                where: {
+                    company: user.company
+                }
+            });
+            if (!arduinos) {
+                return res.status(400).send({
+                    error: `No arduinos found for ${user.city}. Wait a few minutes while the data is fetching.`
+                });
+            }
+            const arduinoIds = arduinos.map(arduino => arduino.id);
+            const sensorData = await Sensor.findAll({
+                where: {
+                    arduino_id: arduinoIds
+                },
+                attributes: [
+                    'arduino_id',
+                    'temperature', 
+                    'humidity',
+                    [Sequelize.fn('max', Sequelize.col('date')), 'latestDate']
+                ],
+                group: ['arduino_id', 'temperature', 'humidity']
+            });
+
+            if (!sensorData) {
+                return res.status(400).send({
+                    error: `No sensor data found for ${user.city}.`
+                });
+            }
+
+            res.send({
+                sensorData: sensorData
+            });
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({
+                error: 'An error has occured trying to fetch the sensor data'
             });
         }
     }

@@ -11,4 +11,8 @@ router.get('/getFireProbability',
     authMiddleware.authToken,
     weatherController.getFireProbability);
 
+router.get('/getSensorData',
+    authMiddleware.authToken,
+    weatherController.getSensorData);
+
 module.exports = router;
