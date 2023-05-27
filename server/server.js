@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const config = require('./config/default.json');
+const mqttHandler = require('./mqtt/mqtthandler.js');
 const port = config.port;
 
 const authRoutes = require('./routes/authroutes.js');
@@ -40,6 +41,7 @@ const start = async () => {
     await syncDatabase();
     app.listen(port, () => {
       console.log(`Server has been started on port ${port}...`); 
+      mqttHandler.startMQTT();
       setInterval( () => {
         ow_api.start()
       }, 1000 * 60 * 2);

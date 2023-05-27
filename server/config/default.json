@@ -10,5 +10,11 @@
     {
         "jwtSecret": "ilovemarie"
     },
-    "units": "metric"
+    "units": "metric",
+    "MQTT_BROKER": "mqtts://8f81ce2a7a7649adb1f05f267e719dae.s2.eu.hivemq.cloud",
+    "MQTT_TOPIC": "temperature_humidity_1",
+    "MQTT_OPTIONS": {
+        "username": "funfil",
+        "password": "]$egLaSSY+#?N35"
+    }
 }
