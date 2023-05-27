@@ -18,4 +18,14 @@ router.get('/get',
     userController.getUser
 );
 
+router.post('/addArduino',
+    authMiddleware.authToken,
+    userController.addArduino
+);
+
+router.get('/getArduinos',
+    authMiddleware.authToken,
+    userController.getArduinos
+);
+
 module.exports = router;

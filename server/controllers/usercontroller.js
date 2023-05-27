@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
+const Arduino = require('../models/arduino.js');
 const jwt = require('jsonwebtoken');
 const config = require('../config/default.json');
 
@@ -124,6 +125,78 @@ module.exports = {
 
             res.send({
                 user: user
+            });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        }
+    },
+
+    async addArduino(req, res) {
+        try {
+            const userId = req.user.id;
+            console.log(`User id: ${userId}`);
+            const user = await User.findByPk(userId);
+            const company = user.company;
+            console.log(`Company: ${company}`);
+
+            const { arduinoName, lontitude, latitude } = req.body;
+
+            if (!arduinoName) {
+                return res.status(400).send({
+                    error: 'Arduino name is required'
+                });
+            }
+
+            const candidateArduino = await Arduino.findOne({
+                where: {
+                    name: arduinoName,
+                    company: company
+                }
+            });
+
+            if (candidateArduino) {
+                return res.status(400).send({
+                    error: `The arduino ${arduinoName} is already in use.`
+                });
+            }
+
+            const arduino = await Arduino.create({
+                name: arduinoName,
+                company: company,
+                longitude: lontitude,
+                latitude: latitude
+            });
+
+            await arduino.save();
+
+            res.send({
+                message: 'Arduino added successfully'
+            });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        }
+    },
+
+    async getArduinos(req, res) {
+        try {
+            const userId = req.user.id;
+            const user = await User.findByPk(userId);
+            const company = user.company;
+
+            const arduinos = await Arduino.findAll({
+                where: {
+                    company: company
+                }
+            });
+
+            res.send({
+                arduinos: arduinos
             });
         } catch (err) {
             res.status(500).send({

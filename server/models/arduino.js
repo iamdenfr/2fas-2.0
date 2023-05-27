@@ -14,6 +14,10 @@ Arduino.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    company: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     latitude: {
         type: DataTypes.FLOAT,
         allowNull: false
