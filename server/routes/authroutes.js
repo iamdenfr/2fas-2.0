@@ -9,8 +9,7 @@ router.post('/register',
     body('username').notEmpty().withMessage('Username is required'),
     body('password')
       .isLength({ min: 6 })
-      .withMessage('Password must be at least 6 characters long'),
-    body('city').isInt().withMessage('Invalid city ID'),
+      .withMessage('Password must be at least 6 characters long')
     ],
   authController.register);
 

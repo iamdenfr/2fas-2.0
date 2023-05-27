@@ -12,6 +12,11 @@ module.exports = {
                 },    
                 order: [['date', 'DESC']]
             });
+            if (!weatherData) {
+                return res.status(400).send({
+                    error: `No weather data found for ${user.city}. Wait a few minutes while the data is fetching.`
+                });
+            }
             res.send({
                 weatherData: weatherData
             });

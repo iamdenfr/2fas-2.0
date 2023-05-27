@@ -9,7 +9,7 @@ const { validationResult } = require('express-validator');
 module.exports = {
   async register(req, res) {
     try {
-      const { email, username, password, city, company } = req.body;
+      const { email, username, password, city, country, company } = req.body;
       let newCompany;
 
       const errors = validationResult(req);
@@ -54,7 +54,6 @@ module.exports = {
             name: company
           }
         });
-  
         if (!companyCandidate) {
           newCompany = await Company.create({
             name: company
@@ -64,12 +63,21 @@ module.exports = {
         }
       }
 
-      const candidateCity = await City.findByPk(city);
+      const candidateCity = await City.findOne(
+        {
+          where: {
+            name: city,
+            country: country
+          }
+        }
+      );
       if (!candidateCity) {
         return res.status(400).send({
-          error: `The city with ID ${city} does not exist.`
+          error: `The city ${city} in ${country} does not exist.`
         });
-      }
+      } 
+      const cityId = candidateCity.id;
+      console.log(`City ID: ${cityId}`);
   
       const hashPassword = await bcrypt.hash(password, 8);
       
@@ -77,7 +85,7 @@ module.exports = {
         email: email,
         username: username,
         password: hashPassword,
-        city: city,
+        city: cityId,
         company: newCompany.id
       });
   
