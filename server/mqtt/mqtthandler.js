@@ -11,7 +11,7 @@ function handleIncomingData(data) {
     date: date
   })
     .then(() => {
-      console.log('Sensor data inserted into the database');
+      console.log(`Sensor data from arduino ${data.arduino_id} inserted into the database`);
     })
     .catch((error) => {
       console.error('Error inserting sensor data into the database:', error);
