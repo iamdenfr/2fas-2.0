@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import Input from '../../utils/input';
 
-const RegistrationForm = () => {
+
+const Registration = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
-    const [cityOptions, setCityOptions] = useState([]);
     const [company, setCompany] = useState('');
 
     const handleNameChange = (e) => {
@@ -34,17 +35,6 @@ const RegistrationForm = () => {
         setCompany(e.target.value);
     };
 
-    React.useEffect(() => {
-        if (country) {
-            axios.get(`http://localhost:8000/api/auth/cities/${country}`)
-                .then(res => {
-                    setCityOptions(res.data);
-                })
-                .catch(err => console.log(err));
-        }
-    }, [country]);
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -67,51 +57,38 @@ const RegistrationForm = () => {
     setCity('');
     setCountry('');
     setCompany('');
-    setCityOptions([]);
 };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Name:
-        <input type="text" value={name} onChange={handleNameChange} />
+        Username:
+        <Input type="text" value={name} onChange={handleNameChange} />
       </label>
       <br />
       <label>
         Email:
-        <input type="email" value={email} onChange={handleEmailChange} />
+        <Input type="email" value={email} onChange={handleEmailChange} />
       </label>
       <br />
       <label>
         Password:
-        <input type="password" value={password} onChange={handlePasswordChange} />
+        <Input type="password" value={password} onChange={handlePasswordChange} />
       </label>
       <br />
         <label>
             Country:
-            <input type="text" value={country} onChange={handleCountryChange} />
+            <Input type="text" value={country} onChange={handleCountryChange} />
         </label>
         <br />
         <label>
             City:
-            <select value={city} onChange={handleCityChange}>
-                {cityOptions.map((city) => (
-                    <option key={city} value={city}>
-                        {city}
-                    </option>
-                ))}
-            </select>
+            <Input type="text" value={city} onChange={handleCityChange} />
         </label>
         <br />
         <label>
             Company:
-            <select value={company} onChange={handleCompanyChange}>
-                {companyOptions.map((company) => (
-                    <option key={company} value={company}>
-                        {company}
-                    </option>
-                ))}
-            </select>
+            <Input type="text" value={company} onChange={handleCompanyChange} />
         </label>
         <br />
       <button type="submit">Register</button>
@@ -119,4 +96,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default Registration;
