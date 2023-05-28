@@ -142,5 +142,22 @@ module.exports = {
         error: 'An error has occurred trying to log in.'
       });
     }
-  }
+  },
+
+  async getCities(req, res) {
+    try {
+      const cities = await City.findAll(
+        {
+          where: {
+            country: req.params.country
+          }
+        });
+      res.send(cities);
+    }
+    catch (err) {
+      res.status(500).send({
+        error: 'An error has occurred trying to get cities.'
+      });
+    }
+  },
 }
