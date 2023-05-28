@@ -1,116 +1,53 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import Input from '../../utils/input';
 import './registration.css';
+import { register } from '../../actions/auth.js';
 
 
 const Registration = () => {
-    const [username, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
     const [company, setCompany] = useState('');
 
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleCountryChange = (e) => {
-        setCountry(e.target.value);
-    };
-
-    const handleCityChange = (e) => {
-        setCity(e.target.value);
-    };
-
-    const handleCompanyChange = (e) => {
-        setCompany(e.target.value);
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-    const user = {
-        email,
-        username,
-        password,
-        city,
-        country,
-        company
+        const user = {
+            email,
+            username,
+            password,
+            city,
+            country,
+            company
+        };
+
+        register(user);
+        // Reset the form fields after submission
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setCountry('');
+        setCity('');
+        setCompany('');
     };
 
-    axios.post('http://localhost:8000/api/auth/register', user)
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err));
-
-    setName('');
-    setEmail('');
-    setPassword('');
-    setCity('');
-    setCountry('');
-    setCompany('');
+    return (
+        <div className="auth-wrapper">
+            <div className="authorization">
+                <div className="authorization__header">Register</div>
+                <Input value={username} onChange={setUsername} type="text" placeholder="Enter your name..." />
+                <Input value={email} onChange={setEmail} type="text" placeholder="Enter your email..." />
+                <Input value={password} onChange={setPassword} type="password" placeholder="Enter your password..." />
+                <Input value={country} onChange={setCountry} type="text" placeholder="Enter your country..." />
+                <Input value={city} onChange={setCity} type="text" placeholder="Enter your city..." />
+                <Input value={company} onChange={setCompany} type="text" placeholder="Enter your company..." />
+                <button className="authorization__btn" onClick={handleSubmit}>Register</button>
+            </div>
+        </div>
+    );
 };
 
-  return (
-    <div className="auth-wrapper">
-    <div className="authorization">
-    <form onSubmit={handleSubmit}>
-      <label>
-        <div className='authorization__header'>Username:</div>
-         <div className="input">
-          <Input type="text" value={username} onChange={handleNameChange} />
-         </div>
-      </label>
-      <br />
-      <label>
-       <div className='authorization__header'>Email:</div>
-        <div className="input"> 
-         <Input type="email" value={email} onChange={handleEmailChange} />
-        </div>
-      </label>
-      <br />
-      <label>
-       <div className='authorization__header'>Password:</div>
-        <div className="input"> 
-         <Input type="password" value={password} onChange={handlePasswordChange} />
-        </div>
-      </label>
-      <br />
-      <label>
-       <div className='authorization__header'>Country:</div>
-        <div className="input">
-         <Input type="text" value={country} onChange={handleCountryChange} />
-        </div>
-      </label>
-      <br />
-      <label>
-       <div className='authorization__header'>City:</div>
-        <div className="input">
-         <Input type="text" value={city} onChange={handleCityChange} />
-        </div>
-      </label>
-      <br />
-      <label>
-       <div className='authorization__header'>Company:</div>
-        <div className="input">
-         <Input type="text" value={company} onChange={handleCompanyChange} />
-        </div>
-      </label>
-      <br />
-      <button className="authorization__btn" type="submit">Register</button>
-    </form>
-    </div>
-    </div>
-  );
-};
-
-export default Registration;
+export default (Registration);
