@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import Input from '../../utils/input';
 import './registration.css';
 import { register } from '../../actions/auth.js';
+import { connect } from 'react-redux';
 
 
-const Registration = () => {
+const Registration = ({register}) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -50,4 +51,4 @@ const Registration = () => {
     );
 };
 
-export default (Registration);
+export default connect(null, {register})(Registration);
