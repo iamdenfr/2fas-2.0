@@ -1,5 +1,3 @@
-const Api = require('../models/ow_api.js');
-const Sequelize = require('sequelize');
 const { smoothWindSpeed, smoothHumidity } = require('./smooth.js');
 
 function temperature(weatherData) {
@@ -25,15 +23,15 @@ async function predictFireProbability(weatherData) {
 
         switch (true) {
             case (fireProbability < 0.2):
-                return `Low - No Fire Danger: ${fireProbability}`;
+                return { message: `Low. There is no risk of fire.`, fireProbability: fireProbability };
             case (fireProbability < 0.4):
-                return `Medium. There is risk of fire: ${fireProbability}`;
+                return { message: `Moderate. There is a moderate risk of fire.`, fireProbability: fireProbability };
             case (fireProbability < 0.6):
-                return `High. There is a high risk of fire: ${fireProbability}`;
+                return { message: `High. There is a high risk of fire.`, fireProbability: fireProbability };
             case (fireProbability < 0.8):
-                return `Very High. There is a very high risk of fire: ${fireProbability}. Please be careful`;
+                return { message: `Very high. There is a very high risk of fire.`, fireProbability: fireProbability };
             default:
-                return `Extreme. There is an extreme risk of fire: ${fireProbability}. Please be careful`;
+                return { message: `Extreme. There is an extreme risk of fire.`, fireProbability: fireProbability };
         }
     } catch (error) {
         console.error('Error predicting fire probability:', error);

@@ -1,13 +1,15 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
 const Arduino = require('../models/arduino.js');
+const Sensor = require('../models/sensor.js');
+const City = require('../models/city.js');
 const jwt = require('jsonwebtoken');
 const config = require('../config/default.json');
 
 module.exports = {
     async updateUser(req, res) {
         try {
-            const { email, username, password, apikey } = req.body;
+            const { email, username, password, apikey, city } = req.body;
             const userId = req.user.id;
 
             console.log(userId);
@@ -66,10 +68,23 @@ module.exports = {
                     });
                 }
             }
-            
 
             if (apikey) {
                 user.apikey = apikey;
+            }
+
+            if (city) {
+                const candidateCity = await City.findOne({
+                    where: {
+                        name: city
+                    }
+                });
+                if (!candidateCity) {
+                    return res.status(400).send({
+                        error: `The city ${city} is not in the database.`
+                    });
+                }
+                user.city = candidateCity.id;
             }
 
             await user.save();
@@ -197,6 +212,50 @@ module.exports = {
 
             res.send({
                 arduinos: arduinos
+            });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        }
+    },
+
+    async deleteArduino(req, res) {
+        try {
+            const userId = req.user.id;
+            const user = await User.findByPk(userId);
+            const company = user.company;
+
+            const { arduinoName } = req.body;
+
+            const arduino = await Arduino.findOne({
+                where: {
+                    name: arduinoName,
+                    company: company
+                }
+            });
+
+            if (!arduino) {
+                return res.status(404).send({
+                    error: 'Arduino not found'
+                });
+            }
+
+            const sensors = await Sensor.findAll({
+                where: {
+                    arduino_id: arduino.id   
+                }
+            });
+
+            for (let i = 0; i < sensors.length; i++) {
+                await sensors[i].destroy();
+            }
+
+            await arduino.destroy();
+
+            res.send({
+                message: 'Arduino deleted successfully'
             });
         } catch (err) {
             res.status(500).send({

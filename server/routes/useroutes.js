@@ -28,4 +28,9 @@ router.get('/getArduinos',
     userController.getArduinos
 );
 
+router.delete('/deleteArduino',
+    authMiddleware.authToken,
+    userController.deleteArduino
+);
+
 module.exports = router;
