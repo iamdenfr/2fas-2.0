@@ -17,14 +17,14 @@ const authReducer = (state = initialState, action) => {
                 loading: false,
                 error: null,
             };
-      case 'USER_REGISTER_FAILED':
-        return {
-          ...state,
-          loading: false,
-          error: action.payload,
-        };
-      default:
-        return state;
+        case 'USER_REGISTER_FAILED':
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        default:
+            return state;
     }
 };
   

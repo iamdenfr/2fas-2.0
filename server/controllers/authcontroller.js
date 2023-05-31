@@ -144,6 +144,29 @@ module.exports = {
     }
   },
 
+  async auth (req, res) {
+    try {
+      const user = await User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+      const token = jwt.sign({id: user.id}, config.authentication.jwtSecret, {
+        expiresIn: '1d'
+      });
+
+      res.send({
+        username: user.username,
+        message: 'You have successfully logged in',
+        token: token
+      });
+    } catch (err) { 
+      res.status(500).send({
+        error: 'An error has occurred trying to log in.'
+      });
+    }
+  },
+
   async getCities(req, res) {
     try {
       const cities = await City.findAll(

@@ -15,6 +15,8 @@ router.post('/register',
 
 router.post('/login', authController.login);
 
+router.get('/auth', authController.auth);
+
 router.get('/cities/:country', authController.getCities);
 
 module.exports = router;
