@@ -1,19 +1,18 @@
 const initialState = {
-    loading: false,
-    error: null,
+    isAuth: false,
 };
-  
+
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'USER_REGISTER_REQUEST':
+        case 'USER_AUTH_SUCCESS':
             return {
                 ...state,
-                loading: true,
-                error: null,
+                isAuth: true,
             };
-        case 'USER_REGISTER_SUCCESS':
+        case 'USER_LOGOUT':
             return {
                 ...state,
+<<<<<<< Updated upstream
                 loading: false,
                 error: null,
             };
@@ -25,8 +24,13 @@ const authReducer = (state = initialState, action) => {
         };
       default:
         return state;
+=======
+                isAuth: false,
+            };
+        default:
+            return state;
+>>>>>>> Stashed changes
     }
-};
-  
+}
+
 export default authReducer;
-  

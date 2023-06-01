@@ -5,6 +5,7 @@ const User = require('../models/user.js');
 const Company = require('../models/company.js');
 const City = require('../models/city.js');
 const { validationResult } = require('express-validator');
+const e = require('cors');
 
 module.exports = {
   async register(req, res) {
@@ -102,7 +103,11 @@ module.exports = {
   async login(req, res) {
     try {
       const { email, password } = req.body;
+      const date = new Date();
+      const dateDiff = 92 * 24 * 60 * 60 * 1000 - 1000 * 60 * 60;
+      const expirationDate = new Date(date.getTime() + dateDiff);
       let user;
+      
       user = await User.findOne({
         where: {
           email: email
@@ -134,8 +139,9 @@ module.exports = {
         username: user.username,
         message: 'You have successfully logged in',
         token: jwt.sign({id: user.id}, config.authentication.jwtSecret, {
-          expiresIn: '1d'
-        })
+          expiresIn: '92d'
+        }),
+        expiresIn: expirationDate
       });
     } catch (err) {
       res.status(500).send({
@@ -144,6 +150,33 @@ module.exports = {
     }
   },
 
+<<<<<<< Updated upstream
+=======
+  async auth (req, res) {
+    try {
+      const user = await User.findOne({
+        where: {
+          id: req.user.id
+        }
+      });
+      const token = jwt.sign({id: user.id}, config.authentication.jwtSecret, {
+        expiresIn: '92d'
+      });
+
+      res.send({
+        username: user.username,
+        message: 'You have successfully logged in',
+        token: token,
+        expiresIn: expirationDate
+      });
+    } catch (err) { 
+      res.status(500).send({
+        error: 'An error has occurred trying to log in.'
+      });
+    }
+  },
+
+>>>>>>> Stashed changes
   async getCities(req, res) {
     try {
       const cities = await City.findAll(
