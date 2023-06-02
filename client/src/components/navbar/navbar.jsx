@@ -7,7 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const isAuth = useSelector((state) => state.login.isAuth);
+    // const auth = () => {
+    //     const token = localStorage.getItem('token');
+    //     const expiresIn = new Date(localStorage.getItem('expiresIn')); 
+    //     const now = new Date().getTime(); 
+    //     return token && expiresIn && now < expiresIn.getTime();
+    // };
+      
+    // const isAuth = auth();
+
+    const isAuth = useSelector(state => state.auth.isAuth);
     
     return (
         <div className="navbar">

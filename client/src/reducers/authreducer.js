@@ -1,32 +1,22 @@
 const initialState = {
-    loading: false,
-    error: null,
+    isAuth: false,
 };
-  
+
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'USER_REGISTER_REQUEST':
+        case 'USER_AUTH_SUCCESS':
             return {
                 ...state,
-                loading: true,
-                error: null,
+                isAuth: true,
             };
-        case 'USER_REGISTER_SUCCESS':
+        case 'USER_LOGOUT':
             return {
                 ...state,
-                loading: false,
-                error: null,
-            };
-        case 'USER_REGISTER_FAILED':
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
+                isAuth: false,
             };
         default:
             return state;
     }
-};
-  
+}
+
 export default authReducer;
-  
