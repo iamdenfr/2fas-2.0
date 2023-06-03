@@ -263,5 +263,24 @@ module.exports = {
                 message: err.message
             });
         }
+    },
+
+    async getCity(req, res) {
+        try {
+            const userId = req.user.id;
+            const user = await User.findByPk(userId);
+            const cityId = user.city;
+
+            const city = await City.findByPk(cityId);
+
+            res.send({
+                city: city
+            });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        }
     }
 }

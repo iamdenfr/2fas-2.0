@@ -1,5 +1,5 @@
 {
-    "host": "localhost",
+    "host": "192.168.1.103",
     "port": 8000,
     "dbport": 5432,
     "database": "fas",

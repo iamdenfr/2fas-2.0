@@ -33,4 +33,9 @@ router.delete('/deleteArduino',
     userController.deleteArduino
 );
 
+router.get('/getCity',
+    authMiddleware.authToken,
+    userController.getCity
+);
+
 module.exports = router;
