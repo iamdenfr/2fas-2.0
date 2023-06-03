@@ -20,19 +20,19 @@ const Navbar = () => {
             <div className="container">
                 <div className="navbar__header">2FAS</div>
                 {!isAuth && 
-                <div className="navbar__login"><NavLink to="/login"><div>Увійти</div></NavLink></div> 
+                <div className="navbar__login"><NavLink to="/login">Увійти</NavLink></div> 
                 }
                 {!isAuth && 
-                <div className="navbar__registration"><NavLink to="/registration"><div>Зареєструватися</div></NavLink></div> 
+                <div className="navbar__registration"><NavLink to="/registration">Зареєструватися</NavLink></div> 
                 }
                 {isAuth && 
-                <div className="navbar__login" onClick={() => dispatch(logout()) }><NavLink to="/login"><div>Вийти</div></NavLink></div> 
+                <div className="navbar__login" onClick={() => dispatch(logout()) }><NavLink to="/login">Вийти з акаунту</NavLink></div> 
                 }
                 {isAuth &&
-                <div className="navbar__registration"><NavLink to="/dashboard"><div>До панелі</div></NavLink></div>
+                <div className="navbar__registration"><NavLink to="/dashboard">До панелі</NavLink></div>
                 }
                 {isAuth &&
-                <div className="navbar__registration"><NavLink to="/updateuser"><div>Редагувати профіль</div></NavLink></div>
+                <div className="navbar__registration"><NavLink to="/updateuser">Профіль</NavLink></div>
                 }
                 <div className='navbar__language'>
                 </div>
