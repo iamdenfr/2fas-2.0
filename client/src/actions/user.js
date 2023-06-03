@@ -18,16 +18,41 @@ export const updateUser = (user, token) => async (dispatch) => {
     }
 }
 
-export const deleteUser = () => async(dispatch) => {
+export const deleteUser = (token) => async(dispatch) => {
     try{
         dispatch ({type: "USER_DELETE_REQUEST"});
-        const response = await axios.delete("http://192.168.1.103:8000/api/user/delete");
-        dispatch ({type: "USER_DELETE_SUCCESS", payload: response.data});
+        const response = await axios.delete("http://192.168.1.103:8000/api/user/delete", {
+            headers: {
+                Authorization: `Bearer ${token}`
+                }
+            });
+        console.log(response.data);
+        dispatch ({type: "USER_DELETE_SUCCESS", payload: response.data}); 
+        localStorage.removeItem('token');
+        localStorage.removeItem('expiresIn');
+        window.location.href = '/login';
         console.log(response.data);
         alert("User deleted successfully");
     } catch (error) {
         dispatch ({type: "USER_DELETE_FAILED", payload: error});
         alert("Error deleting user");
+        console.log(error);
+    }
+}
+
+export const getUser = (token) => async(dispatch) => {
+    try{
+        dispatch ({type: "USER_GET_REQUEST"});
+        const response = await axios.get("http://192.168.1.103/api/user/get", {
+            headers: {
+                Authorization: `Bearer ${token}`
+                }
+            });
+        dispatch ({type: "USER_GET_SUCCESS", payload: response.data});
+        console.log(response.data);
+    } catch (error) {
+        dispatch ({type: "USER_GET_FAILED", payload: error});
+        alert("Error retrieving user");
         console.log(error);
     }
 }
