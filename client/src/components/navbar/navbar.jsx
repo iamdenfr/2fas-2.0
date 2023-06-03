@@ -1,23 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 import { logout } from "../../actions/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
+import { auth } from "../../actions/auth";
 
 
 const Navbar = () => {
-    const dispatch = useDispatch();
-    // const auth = () => {
-    //     const token = localStorage.getItem('token');
-    //     const expiresIn = new Date(localStorage.getItem('expiresIn')); 
-    //     const now = new Date().getTime(); 
-    //     return token && expiresIn && now < expiresIn.getTime();
-    // };
-      
-    // const isAuth = auth();
 
     const isAuth = useSelector(state => state.auth.isAuth);
-    
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(auth());
+    }, [dispatch]);
+
     return (
         <div className="navbar">
             <div className="container">
