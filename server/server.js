@@ -12,7 +12,18 @@ const ow_api = require('./utils/openweatherscheduler.js');
 
 const sequelize = require('./sequelize');
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://192.168.1.103:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  preflightContinue: (req, res, next) => {
+    console.log('CORS preflight request received');
+    next();
+  },
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);

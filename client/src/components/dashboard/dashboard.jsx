@@ -80,7 +80,7 @@ const Dashboard = () => {
 
   return (
     <div>
-        <div className='wrap-center'>
+     <div className='wrap-center'>
       <div className='dashboard-container'>
         {userData && city ? (
           <div className='dashboard'>
@@ -91,7 +91,20 @@ const Dashboard = () => {
         ) : (
           <p>Loading user data...</p>
         )}
-        {weatherData && fireData ? (
+        {fireData ? (
+            <div className='dashboard'>
+                <h2>Fire Probability</h2>
+                <p>
+                    <b>{fireData.message}</b>
+                </p>
+                <p>
+                    <b>{(fireData.fireProbability * 100).toFixed(2)}%</b>
+                </p>
+            </div>
+        ) : (
+            <p>Loading fire data...</p>
+        )}
+        {weatherData ? (
           <div className='dashboard'>
             <h2>Weather Information</h2>
             <p>
@@ -105,13 +118,6 @@ const Dashboard = () => {
             </p>
             <p>
               Wind Degree: <b>{weatherData.wind_deg}°</b>
-            </p>
-            <h2>Fire Probability</h2>
-            <p>
-              <b>{fireData.message}</b>
-            </p>
-            <p>
-              <b>{(fireData.fireProbability * 100).toFixed(2)}%</b>
             </p>
           </div>
         ) : (

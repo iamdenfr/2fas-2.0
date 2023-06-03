@@ -28,6 +28,12 @@ const Navbar = () => {
                 {isAuth && 
                 <div className="navbar__login" onClick={() => dispatch(logout()) }><NavLink to="/login"><div>Вийти</div></NavLink></div> 
                 }
+                {isAuth &&
+                <div className="navbar__registration"><NavLink to="/dashboard"><div>До панелі</div></NavLink></div>
+                }
+                {isAuth &&
+                <div className="navbar__registration"><NavLink to="/updateuser"><div>Редагувати профіль</div></NavLink></div>
+                }
                 <div className='navbar__language'>
                 </div>
             </div>

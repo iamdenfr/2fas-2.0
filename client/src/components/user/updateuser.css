@@ -1,0 +1,37 @@
+.update-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.update {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.update__header {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.update input {
+    margin: 10px 0;
+}
+
+.update__btn {
+    border: none;
+    background-color: #566885;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    padding: 5px 10px;
+    align-self: flex-end;
+    margin-top: 10px;
+    cursor: pointer;
+}

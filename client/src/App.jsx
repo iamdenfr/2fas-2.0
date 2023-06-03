@@ -7,6 +7,7 @@ import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Navbar from './components/navbar/navbar.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth } from './actions/auth';
+import UpdateUser from './components/user/updateuser';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={!isAuth? <Login /> : <Navigate to="/dashboard"/>} />
             <Route path="/dashboard" element={isAuth ? <Dashboard /> : <Navigate to="/login" />} />
+            <Route path="/updateuser" element={isAuth ? <UpdateUser /> : <Navigate to="/login" />} />
           </Routes>
         </div>
       </div>
