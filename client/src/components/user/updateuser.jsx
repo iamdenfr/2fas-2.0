@@ -93,8 +93,8 @@ const UpdateUser = ({ updateUser, deleteUser }) => {
             <div className="user__data">
               <div className="user__data__item">Email: {userData.user.email}</div>
               <div className="user__data__item">Username: {userData.user.username}</div>
-              <div className="user__data__item">City: {cityData && cityData.city.name}</div>
-              <div className="user__data__item">Country: {cityData && cityData.city.country}</div>
+              <div className="user__data__item">City: {cityData.city.name}</div>
+              <div className="user__data__item">Country: {cityData.city.country}</div>
               <div className="user__data__item">API key: {userData.user.apikey}</div>
             </div>
           </div>
