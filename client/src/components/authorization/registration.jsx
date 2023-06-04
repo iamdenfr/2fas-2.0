@@ -3,9 +3,12 @@ import Input from '../../utils/input';
 import './registration.css';
 import { register } from '../../actions/auth.js';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 
 const Registration = ({register}) => {
+    const { t } = useTranslation();
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,14 +41,14 @@ const Registration = ({register}) => {
     return (
         <div className="auth-wrapper">
             <div className="authorization">
-                <div className="authorization__header">Register</div>
-                <Input value={username} onChange={setUsername} type="text" placeholder="Enter your name..." />
-                <Input value={email} onChange={setEmail} type="text" placeholder="Enter your email..." />
-                <Input value={password} onChange={setPassword} type="password" placeholder="Enter your password..." />
-                <Input value={country} onChange={setCountry} type="text" placeholder="Enter your country..." />
-                <Input value={city} onChange={setCity} type="text" placeholder="Enter your city..." />
-                <Input value={company} onChange={setCompany} type="text" placeholder="Enter your company..." />
-                <button className="authorization__btn" onClick={handleSubmit}>Register</button>
+                <div className="authorization__header">{t("registration.title")}</div>
+                <Input value={username} onChange={setUsername} type="text" placeholder={t("registration.username")} />
+                <Input value={email} onChange={setEmail} type="text" placeholder={t("registration.email")} />
+                <Input value={password} onChange={setPassword} type="password" placeholder={t("registration.password")} />
+                <Input value={country} onChange={setCountry} type="text" placeholder={t("registration.country")} />
+                <Input value={city} onChange={setCity} type="text" placeholder={t("registration.city")} />
+                <Input value={company} onChange={setCompany} type="text" placeholder={t("registration.company")} />
+                <button className="authorization__btn" onClick={handleSubmit}>{t("registration.register")}</button>
             </div>
         </div>
     );

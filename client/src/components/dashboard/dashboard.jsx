@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import './dashboard.css';
 
 const Dashboard = () => {
+  const { t } = useTranslation();
+
   const [weatherData, setWeatherData] = useState(null);
   const [fireData, setFireData] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -84,16 +87,16 @@ const Dashboard = () => {
       <div className='dashboard-container'>
         {userData && city ? (
           <div className='dashboard'>
-            <h2>{userData.user.username}'s Dashboard</h2>
+            <h2>{t("dashboard.dashboard")}{userData.user.username}</h2>
             <h1>{city.city.name}</h1>
             <br />
           </div>
         ) : (
-          <p>Loading user data...</p>
+          <p>{t("loading")}</p>
         )}
         {fireData ? (
             <div className='dashboard'>
-                <h2>Fire Probability</h2>
+                <h2>{t("dashboard.fire")}</h2>
                 <p>
                     <b>{fireData.message}</b>
                 </p>
@@ -102,26 +105,26 @@ const Dashboard = () => {
                 </p>
             </div>
         ) : (
-            <p>Loading fire data...</p>
+            <p>{t("loading")}</p>
         )}
         {weatherData ? (
           <div className='dashboard'>
-            <h2>Weather Information</h2>
+            <h2>{t("dashboard.weather")}</h2>
             <p>
-              Temperature: <b>{((weatherData.temp_min + weatherData.temp_max) / 2).toFixed(2)}°C</b>
+              {t("dashboard.temperature")}<b>{((weatherData.temp_min + weatherData.temp_max) / 2).toFixed(2)}°C</b>
             </p>
             <p>
-              Humidity: <b>{weatherData.humidity}%</b>
+              {t("dashboard.humidity")}<b>{weatherData.humidity}%</b>
             </p>
             <p>
-              Wind Speed: <b>{weatherData.wind_speed} m/s</b>
+              {t("dashboard.wind_speed")}<b>{weatherData.wind_speed} m/s</b>
             </p>
             <p>
-              Wind Degree: <b>{weatherData.wind_deg}°</b>
+              {t("dashboard.wind_direction")}<b>{weatherData.wind_deg}°</b>
             </p>
           </div>
         ) : (
-          <p>Loading weather data...</p>
+          <p>{t("loading")}</p>
         )}
         </div>
       </div>

@@ -29,10 +29,8 @@
   .navbar__login {
     margin-left: auto;
     align-items: center;
-    justify-content: center;
   }
   .container {
-    width: 1000px;
     display: flex;
     align-items: center;
   }
@@ -40,14 +38,13 @@
   .navbar__login a,
 .navbar__registration a {
   justify-self: center;
-  justify-content: center;
   text-decoration: none;
   color: #566885;
   font-size: 16px;
   font-weight: 700;
   padding: 10px;
   transition: color 0.3s ease;
-  margin: 35px;
+  margin: 2px;
 }
 
 .navbar__login a:hover,

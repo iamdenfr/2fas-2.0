@@ -5,6 +5,7 @@ import { updateUser, deleteUser } from '../../actions/user';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const UpdateUser = ({ updateUser, deleteUser }) => {
   const [email, setEmail] = useState('');
@@ -16,6 +17,8 @@ const UpdateUser = ({ updateUser, deleteUser }) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [userData, setUserData] = useState(null);
   const [cityData, setCurrentCity] = useState(null);
+
+  const { t } = useTranslation();
 
   const handleUpdateUser = async (e) => {
     e.preventDefault();
@@ -89,70 +92,70 @@ const UpdateUser = ({ updateUser, deleteUser }) => {
       {userData && cityData ? (
         <div className="user-wrapper">
           <div className="user">
-            <div className="user__header">User data</div>
+            <div className="user__header">{t("user.header")}</div>
             <div className="user__data">
-              <div className="user__data__item">Email: {userData.user.email}</div>
-              <div className="user__data__item">Username: {userData.user.username}</div>
-              <div className="user__data__item">City: {cityData.city.name}</div>
-              <div className="user__data__item">Country: {cityData.city.country}</div>
-              <div className="user__data__item">API key: {userData.user.apikey}</div>
+              <div className="user__data__item">{t("user.email")}{userData.user.email}</div>
+              <div className="user__data__item">{t("user.username")}{userData.user.username}</div>
+              <div className="user__data__item">{t("user.city")}{cityData.city.name}</div>
+              <div className="user__data__item">{t("user.country")}{cityData.city.country}</div>
+              <div className="user__data__item">{t("user.apikey")}{userData.user.apikey? `${t("present")}` : `${t("absent")}`}</div>
             </div>
           </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div>{t("loading")}</div>
       )}
       <div className="update-wrapper">
         <div className="update">
-          <div className="update__header">Update user</div>
+          <div className="update__header">{t("user.update_header")}</div>
           <Input
             value={email}
             onChange={setEmail}
             type="text"
-            placeholder="Enter your new email..."
+            placeholder={t("user.update_email")}
           />
           <Input
             value={username}
             onChange={setUsername}
             type="text"
-            placeholder="Enter your new username..."
+            placeholder={t("user.update_username")}
           />
           <Input
             value={password}
             onChange={setPassword}
             type="password"
-            placeholder="Enter your new password..."
+            placeholder={t("user.update_password")}
           />
           <Input
             value={city}
             onChange={setCity}
             type="text"
-            placeholder="Enter your new city..."
+            placeholder={t("user.update_city")}
           />
           <Input
             value={apiKey}
             onChange={setApiKey}
             type="text"
-            placeholder="Enter your new api key..."
+            placeholder={t("user.update_apikey")}
           />
           <div className="update__btn" onClick={handleUpdateUser}>
-            Update
+          {t("user.update")}
           </div>
           <div className="update__btn" onClick={handleDeleteUser}>
-            Delete
+          {t("user.delete")}
           </div>
         </div>
       </div>
       {showDeleteConfirmation && (
         <div className="confirmation-overlay">
           <div className="confirmation-box">
-            <p>Are you sure you want to delete the user?</p>
+            <p>{t("user.delete_confirm")}</p>
             <div className="confirmation-buttons">
               <div className="confirmation-btn" onClick={handleConfirmDelete}>
-                Yes
+              {t("yes")}
               </div>
               <div className="confirmation-btn" onClick={handleCancelDelete}>
-                No
+              {t("no")}
               </div>
             </div>
           </div>
@@ -161,13 +164,13 @@ const UpdateUser = ({ updateUser, deleteUser }) => {
         {showUpdateConfirmation && (
             <div className="confirmation-overlay">
                 <div className="confirmation-box">
-                    <p>Are you sure you want to update the user?</p>
+                    <p>{t("user.update_confirm")}</p>
                     <div className="confirmation-buttons">
                         <div className="confirmation-btn" onClick={handleConfirmUpdate}>
-                            Yes
+                        {t("yes")}
                         </div>
                         <div className="confirmation-btn" onClick={handleCancelUpdate}>
-                            No
+                        {t("no")}
                         </div>
                     </div>
                 </div>

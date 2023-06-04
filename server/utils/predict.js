@@ -13,7 +13,10 @@ async function predictFireProbability(weatherData) {
 
         const smoothedWindSpeed = smoothWindSpeed(windSpeed, weatherData);
         const smoothedHumidity = smoothHumidity(humidity, weatherData);
-        const smoothedTemperature = temperature(weatherData);
+        let smoothedTemperature = temperature(weatherData);
+        if (smoothedTemperature < 1) {
+            smoothedTemperature = 1;
+        }
 
         const windSpeedProbability = 0.9 + (smoothedWindSpeed / 100);
         const humidityProbability = smoothedHumidity / 100;

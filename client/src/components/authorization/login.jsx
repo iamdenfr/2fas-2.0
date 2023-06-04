@@ -4,8 +4,10 @@ import "./registration.css";
 import { login } from "../../actions/auth";
 import { useDispatch} from "react-redux";
 import Input from "../../utils/input";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+    const { t } = useTranslation();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,14 +19,14 @@ const Login = () => {
     return (
         <div className="auth-wrapper">
             <div className="authorization">
-                <div className="authorization__header">Login</div>
-                <Input value={email} onChange={setEmail} type="text" placeholder="Enter your email..." />
-                <Input value={password} onChange={setPassword} type="password" placeholder="Enter your password..." />
+                <div className="authorization__header">{t("login.title")}</div>
+                <Input value={email} onChange={setEmail} type="text" placeholder={t("login.username")} />
+                <Input value={password} onChange={setPassword} type="password" placeholder={t("login.password")} />
                 <div className="authorization__btn" onClick={() =>
                     dispatch(login(email, password)).then(() => {
                         navigate('/dashboard')
                         })
-                    }>Login</div>
+                    }>{t("login.login")}</div>
             </div>
         </div>
     );
