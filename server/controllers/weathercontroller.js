@@ -97,15 +97,18 @@ module.exports = {
         }
     },
 
-    async lastDay(req, res) {
+    async lastHour(req, res) {
         try {
             const user = await User.findByPk(req.user.id);
             const weatherData = await ApiData.findAll({
                 where: {
-                    city: user.city
+                    city: user.city,
+                    date: {
+                        [Sequelize.Op.gte]: new Date(new Date() - 60 * 60 * 1000)
+                    }
                 },    
                 order: [['date', 'DESC']],
-                limit: 30*24
+                limit: 30
             });
             if (!weatherData) {
                 return res.status(400).send({

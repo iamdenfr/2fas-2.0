@@ -15,8 +15,8 @@ router.get('/getSensorData',
     authMiddleware.authToken,
     weatherController.getSensorData);
 
-router.get('/lastDay',
+router.get('/lastHour',
     authMiddleware.authToken,
-    weatherController.lastDay);
+    weatherController.lastHour);
 
 module.exports = router;
