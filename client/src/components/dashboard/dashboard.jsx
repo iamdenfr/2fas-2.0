@@ -178,7 +178,7 @@ const Dashboard = () => {
       <div className='wrap-center'>
         <div className='dashboard-container'>
           {arduinos && sensorData ? (
-            <div className='dashboard'>
+            <div className='dashboard-container'>
               <h1>{t('dashboard.arduinos')}</h1>
               {arduinos.map((arduino) => (
                 <div className = "dashboard" key={arduino.id}>
