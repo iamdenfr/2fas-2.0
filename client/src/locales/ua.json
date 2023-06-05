@@ -46,7 +46,15 @@
         "temperature": "Температура: ",
         "humidity": "Вологість: ",
         "wind_speed": "Швидкість вітру: ",
-        "wind_direction": "Напрям вітру: "
+        "wind_direction": "Напрям вітру: ",
+        "fire_probability": {
+            "very_low": "Дуже низька",
+            "low": "Низька",
+            "medium": "Середня",
+            "high": "Висока",
+            "very_high": "Дуже висока"
+        },
+        "arduinos": "Ардуіно"
     },
 
     "user": {

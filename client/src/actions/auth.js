@@ -28,6 +28,7 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem("expiresIn", response.data.expiresIn);
     console.log(`User ${user.email} logged in successfully`);
     alert(`User ${user.email} logged in successfully`);
+    window.location.href = "/dashboard";
   } catch (error) {
     dispatch({ type: "USER_LOGIN_FAILED", payload: error });
     alert("Error logging in user " + email);

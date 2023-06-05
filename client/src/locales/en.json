@@ -46,7 +46,15 @@
         "temperature": "Temperature: ",
         "humidity": "Humidity: ",
         "wind_speed": "Wind speed: ",
-        "wind_direction": "Wind direction: "
+        "wind_direction": "Wind direction: ",
+        "fire_probability": {
+            "very_low": "Very low",
+            "low": "Low",
+            "medium": "Medium",
+            "high": "High",
+            "very_high": "Very high"
+        },
+        "arduinos": "Arduinos"
     },
 
     "user": {

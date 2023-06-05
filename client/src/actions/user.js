@@ -49,7 +49,6 @@ export const getUser = (token) => async(dispatch) => {
                 }
             });
         dispatch ({type: "USER_GET_SUCCESS", payload: response.data});
-        console.log(response.data);
     } catch (error) {
         dispatch ({type: "USER_GET_FAILED", payload: error});
         alert("Error retrieving user");
