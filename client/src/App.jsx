@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import './App.css';
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { auth } from './actions/auth';
+
 import Registration from './components/authorization/registration';
 import Login from './components/authorization/login';
 import Dashboard from './components/dashboard/dashboard';
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Navbar from './components/navbar/navbar.jsx';
-import { useSelector, useDispatch } from 'react-redux';
-import { auth } from './actions/auth';
 import UpdateUser from './components/user/updateuser';
+
+import './App.css';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,8 +18,6 @@ const App = () => {
   useEffect(() => {
     dispatch(auth());
   }, [dispatch]);
-
-  console.log(isAuth);
   
   return (
     <BrowserRouter>

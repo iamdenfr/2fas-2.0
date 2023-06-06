@@ -47,42 +47,42 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-  }
+}
   
-  .confirmation-box {
+.confirmation-box {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+}
   
-  .confirmation-buttons {
+.confirmation-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-  }
+}
   
-  .confirmation-btn {
+.confirmation-btn {
     padding: 10px 20px;
     background-color: #ff0000;
     color: white;
     cursor: pointer;
     border-radius: 4px;
-  }
+}
   
-  .confirmation-btn:hover {
+.confirmation-btn:hover {
     background-color: #cc0000;
-  }
+}
 
 
-  .user-wrapper {
+.user-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
+}
   
-  .user {
+.user {
     display: flex;
     flex-direction: column;
     width: 500px;
@@ -90,40 +90,38 @@
     background-color: white;
     border-radius: 20px;
     padding: 30px;
-  }
+}
   
-  .user__header {
+.user__header {
     font-size: 20px;
     font-weight: 700;
-  }
+}
   
-  .user__data {
+.user__data {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-  }
+}
   
-  .user__data__item {
+.user__data__item {
     margin-bottom: 10px;
-  }
+}
   
-  /* Add the following styles to align the user section with the update section */
-  
-  .user-wrapper {
+.user-wrapper {
     margin-bottom: 20px;
-  }
+}
   
-  .user {
+.user {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+}
   
-  .user__data {
+.user__data {
     background-color: #f5f5f5;
     padding: 10px;
     border-radius: 8px;
-  }
+}
   
-  .user__data__item {
+.user__data__item {
     margin-bottom: 5px;
-  }
+}
   
