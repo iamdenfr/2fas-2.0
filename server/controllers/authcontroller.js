@@ -5,7 +5,6 @@ const User = require('../models/user.js');
 const Company = require('../models/company.js');
 const City = require('../models/city.js');
 const { validationResult } = require('express-validator');
-const e = require('cors');
 
 module.exports = {
   async register(req, res) {

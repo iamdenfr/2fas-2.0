@@ -5,6 +5,7 @@ import authReducer from './authreducer';
 import updateReducer from './updateuserreducer';
 import deleteReducer from './deleteuserreducer';
 import getUserReducer from './getuserreducer';
+import adminReducer from './adminreducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   updateUser: updateReducer,
   deleteUser: deleteReducer,
   getUser: getUserReducer,
+  admin: adminReducer,
 });
 
 export default rootReducer;

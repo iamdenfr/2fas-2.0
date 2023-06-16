@@ -17,7 +17,7 @@ const Dashboard = () => {
   const fetchArduinos = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://192.168.1.103:8000/api/user/getArduinos', {
+      const response = await axios.get('http://localhost:8000/api/user/getArduinos', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,7 +31,7 @@ const Dashboard = () => {
   const fetchSensorData = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://192.168.1.103:8000/api/weather/getSensorData', {
+      const response = await axios.get('http://localhost:8000/api/weather/getSensorData', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const fetchWeatherData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://192.168.1.103:8000/api/weather/getWeather', {
+      const response = await axios.get('http://localhost:8000/api/weather/getWeather', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +59,7 @@ const Dashboard = () => {
   const fetchFireData = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://192.168.1.103:8000/api/weather/getFireProbability', {
+      const response = await axios.get('http://localhost:8000/api/weather/getFireProbability', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,13 +89,13 @@ const Dashboard = () => {
   const getUserData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://192.168.1.103:8000/api/user/get', {
+      const response = await axios.get('http://localhost:8000/api/user/get', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      const city = await axios.get(`http://192.168.1.103:8000/api/user/getCity`, {
+      const city = await axios.get(`http://localhost:8000/api/user/getCity`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -135,7 +135,7 @@ const Dashboard = () => {
           {userData && city ? (
             <div className='dashboard'>
               <h2>{t('dashboard.dashboard')}{userData.username}</h2>
-              <h1>{city.name}</h1>
+              <h1>{city.name}, {city.country}</h1>
               <br />
             </div>
           ) : (

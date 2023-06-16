@@ -63,13 +63,13 @@ const UpdateUser = ({ updateUser, deleteUser }) => {
   const getUserData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://192.168.1.103:8000/api/user/get', {
+      const response = await axios.get('http://localhost:8000/api/user/get', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      const city = await axios.get(`http://192.168.1.103:8000/api/user/getCity`, {
+      const city = await axios.get(`http://localhost:8000/api/user/getCity`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

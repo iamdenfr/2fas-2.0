@@ -1,5 +1,5 @@
 {
-    "host": "192.168.1.103",
+    "host": "localhost",
     "port": 8000,
     "client": 3000,
     "dbport": 5432,

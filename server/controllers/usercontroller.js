@@ -282,5 +282,21 @@ module.exports = {
                 message: err.message
             });
         }
+    },
+
+    async isAdmin (req, res) {
+        try {
+            const userId = req.user.id;
+            const user = await User.findByPk(userId);
+
+            res.send({
+                isAdmin: user.is_admin
+            });
+        } catch (err) {
+            res.status(500).send({
+                error: 'Server error',
+                message: err.message
+            });
+        } 
     }
 }

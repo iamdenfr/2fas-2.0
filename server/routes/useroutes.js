@@ -38,4 +38,9 @@ router.get('/getCity',
     userController.getCity
 );
 
+router.get('/isAdmin',
+    authMiddleware.authToken,
+    userController.isAdmin
+);
+
 module.exports = router;

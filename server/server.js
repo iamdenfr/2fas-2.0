@@ -8,6 +8,7 @@ const port = config.port;
 const authRoutes = require('./routes/authroutes.js');
 const userRoutes = require('./routes/useroutes.js');
 const weatherRoutes = require('./routes/weatherroutes.js');
+const adminRoutes = require('./routes/adminroutes.js');
 const ow_api = require('./utils/openweatherscheduler.js');
 
 const sequelize = require('./sequelize');
@@ -17,6 +18,15 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/weather', weatherRoutes);
+app.use('/api/admin', adminRoutes)
+
+const User = require('./models/user.js');
+const City = require('./models/city.js');
+const Company = require('./models/company.js');
+const Api = require('./models/ow_api.js');
+const Sensor = require('./models/sensor.js');
+const ApiData = require('./models/smoothdata.js');
+const Arduino = require('./models/arduino.js');
 
 const syncDatabase = async () => {
   try {

@@ -31,6 +31,9 @@ User.init({
     },
     company: {
         type: DataTypes.INTEGER
+    },
+    is_admin: {
+        type: DataTypes.BOOLEAN
     }
 }, {    
     sequelize,
