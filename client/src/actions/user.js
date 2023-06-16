@@ -56,21 +56,3 @@ export const getUser = (token) => async(dispatch) => {
     }
 }
 
-export const isAdmin = (token) => async(dispatch) => {
-    try{
-        dispatch ({type: "ADMIN_REQUEST"});
-        const response = await axios.get("http://localhost:8000/api/user/isAdmin", {
-            headers: {
-                Authorization: `Bearer ${token}`
-                }
-            });
-            if (response.data.isAdmin) {
-                dispatch ({type: "ADMIN", payload: response.data});
-            }
-            else {
-            dispatch ({type: "NOT_ADMIN", payload: response.data});
-            }
-    } catch (error) {
-        console.log(error);
-    }
-}

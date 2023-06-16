@@ -8,7 +8,6 @@ const port = config.port;
 const authRoutes = require('./routes/authroutes.js');
 const userRoutes = require('./routes/useroutes.js');
 const weatherRoutes = require('./routes/weatherroutes.js');
-const adminRoutes = require('./routes/adminroutes.js');
 const ow_api = require('./utils/openweatherscheduler.js');
 
 const sequelize = require('./sequelize');
@@ -18,7 +17,6 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/weather', weatherRoutes);
-app.use('/api/admin', adminRoutes)
 
 const User = require('./models/user.js');
 const City = require('./models/city.js');
