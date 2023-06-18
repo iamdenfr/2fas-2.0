@@ -54,7 +54,9 @@
             "high": "High",
             "very_high": "Very high"
         },
-        "arduinos": "Arduinos"
+        "arduinos": "Arduinos",
+        "charttemperature": "Temperature",
+        "charthumidity": "Humidity"
     },
 
     "user": {

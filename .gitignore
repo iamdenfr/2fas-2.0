@@ -130,3 +130,4 @@ server/config
 client/public/logo192.png
 client/public/logo512.png
 client/public/favicon.ico
+install_db_and_npm.bat

@@ -54,7 +54,9 @@
             "high": "Висока",
             "very_high": "Дуже висока"
         },
-        "arduinos": "Ардуіно"
+        "arduinos": "Ардуіно",
+        "charttemperature": "Температура",
+        "charthumidity": "Вологість"
     },
 
     "user": {

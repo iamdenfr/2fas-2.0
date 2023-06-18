@@ -104,11 +104,11 @@ module.exports = {
                 where: {
                     city: user.city,
                     date: {
-                        [Sequelize.Op.gte]: new Date(new Date() - 60 * 60 * 1000)
+                        [Sequelize.Op.gte]: new Date(new Date() - 3 * 60 * 60 * 1000)
                     }
                 },    
                 order: [['date', 'DESC']],
-                limit: 30
+                limit: 90
             });
             if (!weatherData) {
                 return res.status(400).send({
