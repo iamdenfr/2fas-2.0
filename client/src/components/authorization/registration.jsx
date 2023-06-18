@@ -17,8 +17,7 @@ const Registration = ({register}) => {
     const [company, setCompany] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
 
         const user = {
             email,
@@ -61,7 +60,7 @@ const Registration = ({register}) => {
                     error={error}
                     errorChange={setError} 
                 />
-                {error && <div className="error">{error}</div>}
+                {error && email.trim() === "" && <div className="error">{error}</div>}
                 <Input 
                     value={password} 
                     onChange={setPassword} 

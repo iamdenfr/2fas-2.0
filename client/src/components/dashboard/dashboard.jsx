@@ -216,8 +216,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([fetchWeatherData(), fetchFireData(), getUserData(), fetchArduinos(), fetchSensorData(), fetchWeatherDataLastHour()]);
-      //await Promise.all([renderWeatherChart()]);
+      await Promise.all([
+        fetchWeatherData(), 
+        fetchFireData(), 
+        getUserData(), 
+        fetchArduinos(), 
+        fetchSensorData(), 
+        fetchWeatherDataLastHour()]);
     };
 
     fetchData();
@@ -232,6 +237,9 @@ const Dashboard = () => {
   }, [fetchFireData, fetchArduinos, fetchSensorData, fetchWeatherData, getUserData, fetchWeatherDataLastHour]);
 
   useEffect(() => {
+    if (!weatherDataLastHour || weatherDataLastHour.length === 0) {
+      return;
+    }
     renderWeatherChart();
 
     const chartInterval = setInterval(renderWeatherChart, 60000);
@@ -240,7 +248,7 @@ const Dashboard = () => {
       clearInterval(chartInterval);
     }
 
-  }, [renderWeatherChart]);
+  }, [renderWeatherChart, weatherDataLastHour]);
 
 
   return (
@@ -301,7 +309,7 @@ const Dashboard = () => {
       </div>
       <div className="wrap-center">
         <div className="dashboard-container">
-          {weatherDataLastHour ? (
+          {weatherDataLastHour != null ? (
             <div className="dashboard">
               <h2>{t('dashboard.weather')}</h2>
               <canvas id="temperatureChart" width="600" height="300"></canvas>
