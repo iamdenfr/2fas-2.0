@@ -11,6 +11,7 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const dispatch = useDispatch();
 
@@ -25,17 +26,27 @@ const Login = () => {
                     onChange={setEmail} 
                     type="text" 
                     placeholder={t("login.username")} 
+                    error={error}
+                    errorChange={setError}
                 />
+                {error && email.trim() === "" && <div className="error">{error}</div>}
                 <Input 
                     value={password} 
                     onChange={setPassword} 
                     type="password" 
                     placeholder={t("login.password")} 
+                    error={error}
+                    errorChange={setError}
                 />
-                <div className="authorization__btn" onClick={() =>
+                {error && password.trim() === "" && <div className="error">{error}</div>}
+                <div className="authorization__btn" onClick={() => {
+                    if (email.trim() === '' || password.trim() === '') {
+                        setError('Заповніть це поле!')
+                    } else {
                     dispatch(login(email, password)).then(() => {
                         navigate('/dashboard')
                     })}
+                }}
                 >
                     {t("login.login")}
                 </div>

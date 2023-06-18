@@ -15,6 +15,7 @@ const Registration = ({register}) => {
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
     const [company, setCompany] = useState('');
+    const [error, setError] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,31 +49,46 @@ const Registration = ({register}) => {
                     onChange={setUsername} 
                     type="text" 
                     placeholder={t("registration.username")} 
+                    error={error}
+                    errorChange={setError}
                 />
+                {error && username.trim() === "" && <div className="error">{error}</div>}
                 <Input 
                     value={email} 
                     onChange={setEmail} 
                     type="text" 
-                    placeholder={t("registration.email")} 
+                    placeholder={t("registration.email")}
+                    error={error}
+                    errorChange={setError} 
                 />
+                {error && <div className="error">{error}</div>}
                 <Input 
                     value={password} 
                     onChange={setPassword} 
                     type="password" 
                     placeholder={t("registration.password")} 
+                    error={error}
+                    errorChange={setError}
                 />
+                {error && password.trim() === "" && <div className="error">{error}</div>}
                 <Input 
                     value={country} 
                     onChange={setCountry} 
                     type="text" 
                     placeholder={t("registration.country")} 
+                    error={error}
+                    errorChange={setError}
                 />
+                {error && country.trim() === "" && <div className="error">{error}</div>}
                 <Input 
                     value={city} 
                     onChange={setCity} 
                     type="text" 
                     placeholder={t("registration.city")} 
+                    error={error}
+                    errorChange={setError}
                 />
+                {error && city.trim() === "" && <div className="error">{error}</div>}
                 <Input 
                     value={company} 
                     onChange={setCompany} 
@@ -81,7 +97,18 @@ const Registration = ({register}) => {
                 />
                 <button 
                     className="authorization__btn" 
-                    onClick={handleSubmit}>
+                    onClick={() => {
+                        if (username.trim() === '' 
+                            || email.trim() === '' 
+                            || password.trim() === '' 
+                            || country.trim() === '' 
+                            || city.trim() === '')  {
+                            setError('Заповніть це поле!')
+                        } else {
+                        handleSubmit()
+                        }
+                    }}
+                >
                     {t("registration.register")}
                 </button>
             </div>

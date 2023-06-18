@@ -35,3 +35,9 @@
     margin-top: 10px;
     cursor: pointer;
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
